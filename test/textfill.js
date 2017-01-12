@@ -1,7 +1,7 @@
 define([
   'intern/chai!expect',
   'intern!bdd',
-  'dist/bundle'
+  'dist/fancy-text-fill'
 ], function (expect, bdd, fancyTextFill) {
 
   bdd.describe('textfill', function () {

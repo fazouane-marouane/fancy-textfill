@@ -1,5 +1,13 @@
 const {
-  addPlugins, createConfig, defineConstants, entryPoint, env, performance, setOutput, sourceMaps, webpack
+  addPlugins,
+  createConfig,
+  defineConstants,
+  entryPoint,
+  env,
+  performance,
+  setOutput,
+  sourceMaps,
+  webpack
 } = require('@webpack-blocks/webpack2')
 const path = require('path')
 
@@ -8,18 +16,28 @@ const plugins = require('./webpack.plugins.config')
 
 module.exports = createConfig([
   setOutput({
-      filename: 'bundle.js',
-      path: path.resolve('./dist'),
-      library: "fancyTextFill",
-      libraryTarget: 'umd'
-    }),
+    filename: "[name].js",
+    path: path.resolve('./dist'),
+    library: "fancyTextFill",
+    libraryTarget: 'umd'
+  }),
+  function () {
+    return {
+      externals: {
+        "jQuery": "jQuery"
+      }
+    }
+  },
   typescript(),
   addPlugins(plugins.basePlugins),
   defineConstants({
     'process.env.NODE_ENV': process.env.NODE_ENV || 'development'
   }),
+  entryPoint({
+    "fancy-text-fill": './src/index.ts',
+    "fancy-text-fill.jQuery": "./src/jquery.plugin.ts"
+  }),
   env('development', [
-    entryPoint('./src/index.ts'),
     sourceMaps(),
     performance({
       // Increase performance budget thresholds for development mode
@@ -28,7 +46,6 @@ module.exports = createConfig([
     })
   ]),
   env('production', [
-    entryPoint('./src/index.ts'),
     addPlugins(plugins.productionPlugins)
   ])
 ])

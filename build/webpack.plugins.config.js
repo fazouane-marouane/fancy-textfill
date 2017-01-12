@@ -3,11 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 exports.basePlugins = [
   new HtmlWebpackPlugin({
-    inject: true,
+    inject: false,
     template: './src/index.html'
-  }),
-  new webpack.ProvidePlugin({
-    $: "jquery"
   })
 ]
 
