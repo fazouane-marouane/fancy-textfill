@@ -1,12 +1,18 @@
 const {
   addPlugins, createConfig, defineConstants, entryPoint, env, performance, setOutput, sourceMaps, webpack
 } = require('@webpack-blocks/webpack2')
+const path = require('path')
 
 const typescript = require('./typescript-block')
 const plugins = require('./webpack.plugins.config')
 
 module.exports = createConfig([
-  setOutput('./dist/bundle.js'),
+  setOutput({
+      filename: 'bundle.js',
+      path: path.resolve('./dist'),
+      library: "fancyTextFill",
+      libraryTarget: 'umd'
+    }),
   typescript(),
   addPlugins(plugins.basePlugins),
   defineConstants({

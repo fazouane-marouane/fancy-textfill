@@ -1,6 +1,14 @@
 const { webpack } = require('@webpack-blocks/webpack2')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 exports.basePlugins = [
+  new HtmlWebpackPlugin({
+    inject: true,
+    template: './src/index.html'
+  }),
+  new webpack.ProvidePlugin({
+    $: "jquery"
+  })
 ]
 
 exports.productionPlugins = [
