@@ -81,7 +81,7 @@ function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number
     }
     currentLineWidth += wordSize;
   }
-  let computedHeight = fontSize * lines + 5 * (lines - 1);
+  let computedHeight = fontSize * lines + (fontSize > 10? 5: 8) * (lines - 1);
   return computedHeight;
 }
 

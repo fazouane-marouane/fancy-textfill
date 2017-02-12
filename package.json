@@ -11,7 +11,7 @@
     "build:dev": "NODE_ENV=development webpack --config build/webpack.config.js",
     "test": "NODE_ENV=development intern-runner config=test/intern"
   },
-  "dependencies": {
+  "devDependencies": {
     "@webpack-blocks/webpack2": "^0.4.0",
     "html-webpack-plugin": "^2.28.0",
     "intern": "^3.4.2",
@@ -19,5 +19,9 @@
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.6",
     "webpack": "2.2.1"
-  }
+  },
+  "files": [
+    "dist/fancy-text-fill.js",
+    "dist/fancy-text-fill.jQuery.js"
+  ]
 }
