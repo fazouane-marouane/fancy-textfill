@@ -47,8 +47,8 @@ export function fillParentContainer(element: HTMLElement, opts: Options): void {
 function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: number, maxFontSize: number, minFontSize: number) {
   let low = minFontSize;
   let high = Math.min(maxHeight, maxFontSize, ...wordRatios.map(r => maxWidth / r));
-  if (checkConstraints(high, wordRatios, maxWidth, maxHeight)) {
-    return high;
+  if (low >= high || checkConstraints(high, wordRatios, maxWidth, maxHeight)) {
+    return Math.max(low, high);
   }
   while (low < high && high - low > 0.3) {
     let fontSize = (low + high) / 2;
