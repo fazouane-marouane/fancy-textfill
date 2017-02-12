@@ -8,17 +8,12 @@ function computeWidthHeightRatio(text: string): number {
 
 interface FontInfo {
   font: string;
-  fontSize: number;
-  sizeUnit: string;
 }
 
 function fontInfo(element: HTMLElement): FontInfo {
   let computedStyle = window.getComputedStyle(element);
-  let fontSizeDetails = computedStyle.fontSize!.match(/(\d+(?:\.\d+)?)(\w+)/);
   return {
-    font: <string>computedStyle.fontFamily,
-    fontSize: Number(fontSizeDetails![1]),
-    sizeUnit: fontSizeDetails![2]
+    font: <string>computedStyle.fontFamily
   };
 }
 
@@ -39,23 +34,25 @@ export function fillParentContainer(element: HTMLElement, opts: Options): void {
     multiline = true
   } = opts;
   let text = element.textContent || '';
-  let { font, fontSize: initialSize, sizeUnit } = fontInfo(element);
+  let { font } = fontInfo(element);
 
   ctx.font = "10px " + font;
-  let tokenizedText = multiline? text.split(/(:? )/): [text];
+  let tokenizedText = multiline ? text.split(/(:? )/) : [text];
   let widthHeightRatios = tokenizedText.map(computeWidthHeightRatio);
 
-  let computedHeight = 0;
   let finalSize = optimalFontSize(widthHeightRatios, maxWidth, maxHeight, maxFontSize, minFontSize);
-  element.style.fontSize = finalSize + sizeUnit;
+  element.style.fontSize = finalSize + "px";
 }
 
 function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: number, maxFontSize: number, minFontSize: number) {
   let low = minFontSize;
   let high = Math.min(maxHeight, maxFontSize, ...wordRatios.map(r => maxWidth / r));
-  while (low < high && high - low > 0.3 ) {
+  if (checkConstraints(high, wordRatios, maxWidth, maxHeight)) {
+    return high;
+  }
+  while (low < high && high - low > 0.3) {
     let fontSize = (low + high) / 2;
-    if(checkConstraints(fontSize, wordRatios, maxWidth, maxHeight)) {
+    if (checkConstraints(fontSize, wordRatios, maxWidth, maxHeight)) {
       low = fontSize;
     }
     else {
