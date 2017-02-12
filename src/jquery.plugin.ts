@@ -1,5 +1,5 @@
-import * as fancyTextFill from './index.ts'
-export * from './index.ts'
+import * as fancyTextFill from './index'
+export * from './index'
 var $ = require("jQuery");
 
 $.myDummyValue = fancyTextFill.dummy();

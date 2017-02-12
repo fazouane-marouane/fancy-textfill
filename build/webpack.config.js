@@ -38,7 +38,8 @@ module.exports = createConfig([
     "fancy-text-fill.jQuery": "./src/jquery.plugin.ts"
   }),
   env('development', [
-    sourceMaps(),
+    () => { debug: true },
+    sourceMaps("inline-source-map"),
     performance({
       // Increase performance budget thresholds for development mode
       maxAssetSize: 1500000,

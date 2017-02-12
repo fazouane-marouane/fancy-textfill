@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "umd",
+    "module": "es2015",
     "target": "es5",
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "sourceMap": true,
     "typeRoots" : ["./node_modules/@types/"]
   }
 }

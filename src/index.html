@@ -8,6 +8,14 @@
     <script type="text/javascript" src="fancy-text-fill.jQuery.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" style="width: 500px; height: 100px;">
+      <span id="myText">hey you! lorem ipsum.</span>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var el = document.getElementById("myText");
+        fancyTextFill.fillParentContainer(el);
+      }, false);
+    </script>
   </body>
 </html>

@@ -32,10 +32,10 @@ function typescript (options) {
 
     // Return empty config snippet (configuration will be created by the post hook)
     return {}
-  }, { post: postConfig })
+  }, { pre, post })
 }
 
-function postConfig (context) {
+function post (context) {
   const exclude = context.typescript.exclude
   const include = context.typescript.include
 
@@ -44,7 +44,7 @@ function postConfig (context) {
   delete typescriptOptions.include
 
   const loaderConfig = Object.assign({
-    test: '*.ts',
+    test: context.fileType('application/x-typescript'),
     loaders: [ 'ts-loader?' + JSON.stringify(typescriptOptions) ]
   }, exclude && {
     exclude: Array.isArray(exclude) ? exclude : [ exclude ]
@@ -53,8 +53,18 @@ function postConfig (context) {
   })
 
   return {
+    resolve: {
+      extensions: ['.ts', '.tsx']
+    },
     module: {
       loaders: [ loaderConfig ]
     }
+  }
+}
+
+function pre (context) {
+  const registeredTypes = context.fileType.all()
+  if (!('application/x-typescript' in registeredTypes)) {
+    context.fileType.add('application/x-typescript', /\.(ts|tsx)$/)
   }
 }
