@@ -17,6 +17,7 @@
     }
     
     .myText {
+      vertical-align: text-top;
       font-family: 'Cabin Condensed', 'Helvetica', sans-serif;
     }
 
@@ -24,6 +25,9 @@
 </head>
 
 <body>
+  <div id="menu">
+    <input id="slider" type="range" min="0" max="500" step="1" />
+  </div>
   <div id="root">
   </div>
   <script>
@@ -37,31 +41,24 @@
             root.append(el);
           })
         });
-      setTimeout(animateWidths);
-    }, false);
-
-    function animateWidths() {
-      var width = (Math.random() * 500) + 100;
-      jQuery(".box").animate({
-        width: width
-      }, {
-        duration: 1000,
-        specialEasing: {
-          width: "linear"
-        },
-        step: function (now, fx) {
-          var el = jQuery('.myText', this)[0];
+      jQuery('.myText').toArray().forEach(function (el) {
+        fancyTextFill.fillParentContainer(el, {
+          minFontSize: 6,
+          maxFontSize: 26
+        });
+      });
+      jQuery("#slider").on("input change", function (event) {
+        var r = Number.parseInt(event.currentTarget.value)
+        jQuery('.myText').toArray().forEach(function (el) {
+          var width = 100 + r;
+          el.parentElement.style.width = width + "px";
           fancyTextFill.fillParentContainer(el, {
             minFontSize: 6,
-            maxFontSize: 26,
-            maxWidth: now
+            maxFontSize: 26
           });
-        },
-        complete: function () {
-          setTimeout(animateWidths);
-        }
+        });
       });
-    }
+    }, false);
 
   </script>
 </body>
