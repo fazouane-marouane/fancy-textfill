@@ -1,21 +1,69 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Demo</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="fancy-text-fill.jQuery.js"></script>
-  </head>
-  <body>
-    <div id="root" style="width: 500px; height: 100px;">
-      <span id="myText">hey you! lorem ipsum.</span>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function(){
-        var el = document.getElementById("myText");
-        fancyTextFill.fillParentContainer(el);
-      }, false);
-    </script>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="fancy-text-fill.jQuery.js"></script>
+  <style>
+    .box {
+      border: crimson solid thin;
+      width: 245px;
+      height: 56px;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
+    
+    .myText {
+      font-family: 'Cabin Condensed', 'Helvetica', sans-serif;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script>
+    var root = jQuery(document.getElementById('root'));
+    document.addEventListener('DOMContentLoaded', function () {
+      "'Cause I am a champion and you’re gonna hear me roar. Oh oh oh oh oh oh, Oh oh oh oh oh oh. So I sat quietly, agreed politely. Sun-kissed skin so hot we'll melt your popsicle. You've become what you despise, a stereotype. Passport stamps, she's cosmopolitan. You're so supersonic, wanna feel your powers, stun me with your lasers. Passport stamps, she's cosmopolitan. I can see the writing on the wall. Don't need apologies. I heard you're feeling nothing's going right. And on my 18th Birthday we got matching tattoos. Slowly swallowing down my fear, yeah yeah. You say that you love me, you won't remember in the morning. There is no fear now, let go and just be free, I will love you unconditionally. We are now approaching the runway, so get ready for take off. Need some goose, to get loose, come on take a shot. Before you met me I was alright but things were kinda heavy. I know you get me so I let my walls come down, down. Who am I living for?. This test is my own cross to bare. It’s a yes or no, no maybe. Come on baby let me see. 'Cause she's a little bit of Yoko, And she's a little bit of 'Oh no'. Last Friday night we went streaking in the park. You brought me to life, now every February you'll be my Valentine, Valentine. Why don't you let me stop by? Last Friday night. Chanel this, Chanel that, hell yeah. Straight stuntin' yeah we do it like that. I need your strength to handle the pressure. Infect me with your love and fill me with your poison. This test is my own cross to bare. That girl’s a trip, a one way ticket. Glitter all over the room pink flamingos in the pool. 'Cause I am a champion and you’re gonna hear me roar louder, louder than a lion. I'm not gonna stay and watch you circle the drain. There’s no going back. Stinging like a bee I earned my stripes."
+      .split(". ")
+        .forEach(function (id) {
+          Array.apply(null, new Array(1)).forEach(function () {
+            var el = jQuery('<div class="box"><span class="myText">' + id + '</span></div>');
+            root.append(el);
+          })
+        });
+      setTimeout(animateWidths);
+    }, false);
+
+    function animateWidths() {
+      var width = (Math.random() * 500) + 100;
+      jQuery(".box").animate({
+        width: width
+      }, {
+        duration: 1000,
+        specialEasing: {
+          width: "linear"
+        },
+        step: function (now, fx) {
+          var el = jQuery('.myText', this)[0];
+          fancyTextFill.fillParentContainer(el, {
+            minFontSize: 6,
+            maxFontSize: 26,
+            maxWidth: now
+          });
+        },
+        complete: function () {
+          setTimeout(animateWidths);
+        }
+      });
+    }
+
+  </script>
+</body>
+
 </html>

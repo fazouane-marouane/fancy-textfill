@@ -1,6 +1,6 @@
 var canvas = document.createElement('canvas');
-var ctx = canvas.getContext('2d')!;
-ctx.font =  "10px 'Source Sans Pro',Arial,sans-serif";
+var ctx = canvas.getContext('2d') !;
+ctx.font = "10px Arial,sans-serif";
 
 function computeWidthHeightRatio(text: string): number {
   return ctx.measureText(text).width / 10;
@@ -14,7 +14,7 @@ interface FontInfo {
 
 function fontInfo(element: HTMLElement): FontInfo {
   let computedStyle = window.getComputedStyle(element);
-  let fontSizeDetails = computedStyle.fontSize!.match(/(\d+)(\w+)/);
+  let fontSizeDetails = computedStyle.fontSize!.match(/(\d+(?:\.\d+)?)(\w+)/);
   return {
     font: <string>computedStyle.fontFamily,
     fontSize: Number(fontSizeDetails![1]),
@@ -22,19 +22,70 @@ function fontInfo(element: HTMLElement): FontInfo {
   };
 }
 
-export function fillParentContainer(element: HTMLElement, opts: any): void {
-  let maxWidth = element.parentElement!.offsetWidth;
-  let maxHeight = element.parentElement!.offsetHeight;
-  let { font, fontSize: initialSize, sizeUnit } = fontInfo(element);
+interface Options {
+  maxWidth: number;
+  maxHeight: number;
+  minFontSize: number;
+  maxFontSize: number;
+  multiline: boolean;
+}
+
+export function fillParentContainer(element: HTMLElement, opts: Options): void {
+  let {
+    minFontSize,
+    maxFontSize,
+    maxWidth = element.parentElement!.clientWidth,
+    maxHeight = element.parentElement!.clientHeight,
+    multiline = true
+  } = opts;
   let text = element.textContent || '';
-  ctx.font =  "10px " + font;
-  let widthHeightRatios = text.split(/(:? )/).map(computeWidthHeightRatio);
-  let cumulatedSum = widthHeightRatios.reduce((acc: number[], value, idx)=> acc.concat((acc[idx - 1] || 0) + value), []);
-  // ...
-  let maximalHeights = cumulatedSum.map(ratioSum => maxWidth / ratioSum);
-  //
-  let finalSize = Math.min(maxHeight, maximalHeights[maximalHeights.length - 1]);
+  let { font, fontSize: initialSize, sizeUnit } = fontInfo(element);
+
+  ctx.font = "10px " + font;
+  let tokenizedText = multiline? text.split(/(:? )/): [text];
+  let widthHeightRatios = tokenizedText.map(computeWidthHeightRatio);
+
+  let computedHeight = 0;
+  let finalSize = optimalFontSize(widthHeightRatios, maxWidth, maxHeight, maxFontSize, minFontSize);
   element.style.fontSize = finalSize + sizeUnit;
+}
+
+function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: number, maxFontSize: number, minFontSize: number) {
+  let low = minFontSize;
+  let high = Math.min(maxHeight, maxFontSize, ...wordRatios.map(r => maxWidth / r));
+  while (low < high && high - low > 0.3 ) {
+    let fontSize = (low + high) / 2;
+    if(checkConstraints(fontSize, wordRatios, maxWidth, maxHeight)) {
+      low = fontSize;
+    }
+    else {
+      high = fontSize;
+    }
+  }
+  return low;
+}
+
+function checkConstraints(fontSize: number, wordRatios: number[], maxWidth: number, maxHeight: number) {
+  let height = estimateHeight(fontSize, wordRatios, maxWidth);
+  return height > 0 && height + 5 < maxHeight;
+}
+
+function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number): number {
+  let currentLineWidth = 0;
+  let lines = 1;
+  for (let r of wordRatios) {
+    let wordSize = r * fontSize;
+    if (wordSize >= maxWidth - 5) {
+      return -1;
+    }
+    if (currentLineWidth + wordSize >= maxWidth - 5) {
+      lines++;
+      currentLineWidth = 0;
+    }
+    currentLineWidth += wordSize;
+  }
+  let computedHeight = fontSize * lines + 5 * (lines - 1);
+  return computedHeight;
 }
 
 export function dummy() {
