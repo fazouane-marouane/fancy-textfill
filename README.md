@@ -5,6 +5,8 @@ Fast implementation for resizing text to fill its container.
 It computes the optimal font-size needed to match a text to specific width and height.
 It's also available as a jquery plugin.
 
+It's really fast. See for yourself. :metal: [Demo](https://fazouane-marouane.github.io/fancy-textfill/)
+
 ## Install
 
 ```bash
