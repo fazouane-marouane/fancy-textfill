@@ -1,4 +1,5 @@
 # FancyTextFill
+[![npm version](https://badge.fury.io/js/fancy-textfill.svg)](https://badge.fury.io/js/fancy-textfill)
 
 Fast implementation for resizing text to fill its container.
 It computes the optimal font-size needed to match a text to specific width and height.
