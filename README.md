@@ -29,6 +29,9 @@ npm install --save fancy-textfill
     width: 200px;
     height: 50px;
   }
+  .myText {
+    display: block;
+  }
 </style>
 <div class="container">
   <span class="myText">Hello darkness, my old friend.</span>

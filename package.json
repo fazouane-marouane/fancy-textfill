@@ -1,6 +1,6 @@
 {
   "name": "fancy-textfill",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fast implementation for resizing text to fill its container.",
   "main": "index.js",
   "repository": "https://github.com/fazouane-marouane/fancy-textfill",
