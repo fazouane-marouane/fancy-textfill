@@ -22,9 +22,6 @@ function fontInfo(element: HTMLElement): FontInfo {
     let matchs = lineHeight.match(/^(\d+(?:.?\d+))(\w*)$/)!;
     lineHeightRatio = parseFloat(matchs[1]);
     switch(matchs[2]) {
-      case 'pt':
-        lineHeightRatio /= 10;
-        break;
       case '%':
         lineHeightRatio /= 100;
         break;
