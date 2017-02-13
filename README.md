@@ -65,8 +65,11 @@ $('.myText').fancyTextFill({
 ## How does it compare to...
 
 1. [jquery-textfill](https://github.com/jquery-textfill/jquery-textfill)
+
 > **Performance!** fancy-TextFill implements the same features while being way faster than the original jquery plugin.
+
 2. [BigText](https://github.com/zachleat/BigText)
+
 > BigText doesn't support multiple lines.
 
 ## Unit tests
