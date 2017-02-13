@@ -8,6 +8,8 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script type="text/javascript" src="fancy-text-fill.jQuery.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css?family=Caveat+Brush');
+    @import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,900');
     .box {
       border: crimson solid thin;
       width: 245px;
@@ -17,16 +19,89 @@
     }
     
     .myText {
-      vertical-align: text-top;
-      font-family: 'Cabin Condensed', 'Helvetica', sans-serif;
+      display: block;
+      font-family: 'Caveat Brush', cursive;
     }
+
+    .top-right {
+      position: fixed;
+      top: 0;
+      right: 0;
+      border: 0;
+    }
+
+    /* Style from https://css-tricks.com/line-on-sides-headers/ */
+body {
+  background: #4B79A1; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4B79A1 , #283E51); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4B79A1 , #283E51); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  color: white;
+}
+
+h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 3em;
+  text-align: center;
+}
+.embiggen {
+  font-size: 4em;
+  text-shadow: 0 0 40px #ffbab3;
+}
+article {
+  max-width: 600px;
+  overflow: hidden;
+  margin: 0 auto 50px;
+}
+
+.subtitle {
+  margin: 0 0 2em 0;
+}
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+}
+.fancy span {
+  display: inline-block;
+  position: relative;  
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  top: 0;
+  width: 600px;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
+}
 
   </style>
 </head>
 
 <body>
-  <div id="menu">
-    <input id="slider" type="range" min="0" max="500" step="1" />
+  <h1>Fancy-TextFill</h1>
+  <p class="subtitle fancy"><span>Fast implementation for resizing text to fill its container.</span></p>
+  <div class="top-right">
+    <p style="position: absolute; right: 0; top: 0; margin: 0;">
+      <a href="https://github.com/fazouane-marouane/fancy-textfill">
+        <img
+          src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+          alt="Fork me on GitHub"
+          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" />
+      </a>
+    </p>
+    <p style="position: relative; top: 149px; margin: 0;">
+      100px <input id="slider" type="range" min="0" max="700" step="1" value="145" /> 800px;
+    </p>
   </div>
   <div id="root">
   </div>
@@ -43,7 +118,7 @@
         });
       jQuery('.myText').fancyTextFill({
         minFontSize: 6,
-        maxFontSize: 26
+        maxFontSize: 50
       });
       jQuery("#slider").on("input change", function (event) {
         var r = Number.parseInt(event.currentTarget.value)
@@ -52,7 +127,7 @@
         });
         jQuery('.myText').fancyTextFill({
           minFontSize: 6,
-          maxFontSize: 26
+          maxFontSize: 50
         });
       });
     }, false);

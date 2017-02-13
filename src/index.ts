@@ -8,12 +8,36 @@ function computeWidthHeightRatio(text: string): number {
 
 interface FontInfo {
   font: string;
+  lineHeightRatio: number;
+  maxLineHeight: number | null;
 }
 
 function fontInfo(element: HTMLElement): FontInfo {
   let computedStyle = window.getComputedStyle(element);
+  const defaultLineHeightRatio = 1.2;
+  let lineHeight = computedStyle.lineHeight;
+  let lineHeightRatio: number = defaultLineHeightRatio
+  let maxLineHeight: number | null = null;
+  if(lineHeight && lineHeight !== 'normal') {
+    let matchs = lineHeight.match(/^(\d+(?:.?\d+))(\w*)$/)!;
+    lineHeightRatio = parseFloat(matchs[1]);
+    switch(matchs[2]) {
+      case 'pt':
+        lineHeightRatio /= 10;
+        break;
+      case '%':
+        lineHeightRatio /= 100;
+        break;
+      case 'px':
+        maxLineHeight = lineHeightRatio;
+        lineHeightRatio /= parseFloat((computedStyle.fontSize || element.style.fontSize)!);
+        break;
+    }
+  }
   return {
-    font: <string>computedStyle.fontFamily
+    font: <string>computedStyle.fontFamily,
+    lineHeightRatio: lineHeightRatio,
+    maxLineHeight: maxLineHeight
   };
 }
 
@@ -33,29 +57,30 @@ export function fillParentContainer(element: HTMLElement, opts: Options = {}): v
     maxHeight = null,
     multiline = true
   } = opts;
+  let { font, lineHeightRatio, maxLineHeight } = fontInfo(element);
   maxWidth = maxWidth || element.parentElement!.clientWidth;
   maxHeight = maxHeight || element.parentElement!.clientHeight;
   maxFontSize = Number(maxFontSize) > 0? maxFontSize : maxHeight;
+  maxLineHeight = Number(maxLineHeight) > 0? maxLineHeight : maxHeight;
   let text = element.textContent || '';
-  let { font } = fontInfo(element);
 
   ctx.font = "10px " + font;
   let tokenizedText = multiline ? text.split(/(:? )/) : [text];
   let widthHeightRatios = tokenizedText.map(computeWidthHeightRatio);
 
-  let finalSize = optimalFontSize(widthHeightRatios, maxWidth, maxHeight, maxFontSize, minFontSize);
+  let finalSize = optimalFontSize(widthHeightRatios, maxWidth, maxHeight, maxFontSize, maxLineHeight!, minFontSize, lineHeightRatio);
   element.style.fontSize = finalSize + "px";
 }
 
-function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: number, maxFontSize: number, minFontSize: number) {
+function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: number, maxFontSize: number, maxLineHeight: number, minFontSize: number, lineHeightRatio: number) {
   let low = minFontSize;
-  let high = Math.min(maxHeight, maxFontSize, ...wordRatios.map(r => maxWidth / r));
-  if (low >= high || checkConstraints(high, wordRatios, maxWidth, maxHeight)) {
+  let high = Math.min(maxHeight, maxFontSize, maxLineHeight, ...wordRatios.map(r => maxWidth / r));
+  if (low >= high || checkConstraints(high, wordRatios, maxWidth, maxHeight, lineHeightRatio)) {
     return Math.max(low, high);
   }
   while (low < high && high - low > 0.3) {
     let fontSize = (low + high) / 2;
-    if (checkConstraints(fontSize, wordRatios, maxWidth, maxHeight)) {
+    if (checkConstraints(fontSize, wordRatios, maxWidth, maxHeight, lineHeightRatio)) {
       low = fontSize;
     }
     else {
@@ -65,12 +90,12 @@ function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: numb
   return low;
 }
 
-function checkConstraints(fontSize: number, wordRatios: number[], maxWidth: number, maxHeight: number) {
-  let height = estimateHeight(fontSize, wordRatios, maxWidth);
-  return height > 0 && height + 5 < maxHeight;
+function checkConstraints(fontSize: number, wordRatios: number[], maxWidth: number, maxHeight: number, lineHeightRatio: number) {
+  let height = estimateHeight(fontSize, wordRatios, maxWidth, lineHeightRatio);
+  return height > 0 && height <= maxHeight;
 }
 
-function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number): number {
+function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number, lineHeightRatio: number): number {
   let currentLineWidth = 0;
   let lines = 1;
   for (let r of wordRatios) {
@@ -84,6 +109,6 @@ function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number
     }
     currentLineWidth += wordSize;
   }
-  let computedHeight = fontSize * lines + (fontSize > 10? 5: 8) * (lines - 1);
+  let computedHeight = fontSize * lines * lineHeightRatio;
   return computedHeight;
 }
