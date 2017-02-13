@@ -24,7 +24,7 @@ module.exports = createConfig([
   function () {
     return {
       externals: {
-        "jQuery": "jQuery"
+        "jquery": "jQuery"
       }
     }
   },

@@ -17,7 +17,7 @@ function fontInfo(element: HTMLElement): FontInfo {
   };
 }
 
-interface Options {
+export interface Options {
   maxWidth: number;
   maxHeight: number;
   minFontSize: number;
@@ -83,8 +83,4 @@ function estimateHeight(fontSize: number, wordRatios: number[], maxWidth: number
   }
   let computedHeight = fontSize * lines + (fontSize > 10? 5: 8) * (lines - 1);
   return computedHeight;
-}
-
-export function dummy() {
-  return 42;
 }

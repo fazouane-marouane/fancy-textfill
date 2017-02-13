@@ -1,5 +1,7 @@
-import * as fancyTextFill from './index'
+import { Options, fillParentContainer} from './index'
 export * from './index'
-var $ = require("jQuery");
+import * as $ from "jquery"
 
-$.myDummyValue = fancyTextFill.dummy();
+$.fn.fancyTextFill = function(opts: Options) {
+  (<JQuery>this).toArray().forEach(el => fillParentContainer(el, opts));
+};
