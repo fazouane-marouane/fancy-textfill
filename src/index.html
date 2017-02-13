@@ -41,21 +41,18 @@
             root.append(el);
           })
         });
-      jQuery('.myText').toArray().forEach(function (el) {
-        fancyTextFill.fillParentContainer(el, {
-          minFontSize: 6,
-          maxFontSize: 26
-        });
+      jQuery('.myText').fancyTextFill({
+        minFontSize: 6,
+        maxFontSize: 26
       });
       jQuery("#slider").on("input change", function (event) {
         var r = Number.parseInt(event.currentTarget.value)
-        jQuery('.myText').toArray().forEach(function (el) {
-          var width = 100 + r;
-          el.parentElement.style.width = width + "px";
-          fancyTextFill.fillParentContainer(el, {
-            minFontSize: 6,
-            maxFontSize: 26
-          });
+        jQuery('.box').toArray().forEach(function (el) {
+          el.style.width = (100 + r) + "px";
+        });
+        jQuery('.myText').fancyTextFill({
+          minFontSize: 6,
+          maxFontSize: 26
         });
       });
     }, false);

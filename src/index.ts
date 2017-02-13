@@ -18,21 +18,24 @@ function fontInfo(element: HTMLElement): FontInfo {
 }
 
 export interface Options {
-  maxWidth: number;
-  maxHeight: number;
-  minFontSize: number;
-  maxFontSize: number;
-  multiline: boolean;
+  maxWidth?: number;
+  maxHeight?: number;
+  minFontSize?: number;
+  maxFontSize?: number;
+  multiline?: boolean;
 }
 
-export function fillParentContainer(element: HTMLElement, opts: Options): void {
+export function fillParentContainer(element: HTMLElement, opts: Options = {}): void {
   let {
-    minFontSize,
-    maxFontSize,
-    maxWidth = element.parentElement!.clientWidth,
-    maxHeight = element.parentElement!.clientHeight,
+    minFontSize = 4,
+    maxFontSize = 40,
+    maxWidth = null,
+    maxHeight = null,
     multiline = true
   } = opts;
+  maxWidth = maxWidth || element.parentElement!.clientWidth;
+  maxHeight = maxHeight || element.parentElement!.clientHeight;
+  maxFontSize = Number(maxFontSize) > 0? maxFontSize : maxHeight;
   let text = element.textContent || '';
   let { font } = fontInfo(element);
 
