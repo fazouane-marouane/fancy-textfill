@@ -87,7 +87,7 @@ function optimalFontSize(wordRatios: number[], maxWidth: number, maxHeight: numb
       high = fontSize;
     }
   }
-  return low;
+  return Math.floor(low);
 }
 
 function checkConstraints(fontSize: number, wordRatios: number[], maxWidth: number, maxHeight: number, lineHeightRatio: number) {
