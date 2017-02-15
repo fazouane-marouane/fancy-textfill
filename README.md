@@ -68,6 +68,7 @@ $('.myText').fancyTextFill({
 | maxWidth    | Explicit width to resize. Defaults to the container's width. | `null` |
 | maxHeight   | Explicit height to resize. Defaults to the container's height. | `null` |
 | multiline   | Will only resize to the width restraint when set to `false` | true |
+| explicitLineHeight | When set to `false`, `line-height`s are assumed to be relative to the current `font-size`| `false`|
 
 ## How does it compare to...
 

@@ -8,11 +8,12 @@ export function fillParentContainer(element: HTMLElement, opts: Options = {}): v
   let {
     minFontSize = 4,
     maxFontSize = 40,
+    explicitLineHeight = false,
     maxWidth = null,
     maxHeight = null,
     multiline = true
   } = opts;
-  let { fontFamily, lineHeightRatio, maxLineHeight } = fontInfo(element);
+  let { fontFamily, lineHeightRatio, maxLineHeight } = fontInfo(element, explicitLineHeight);
   // 2. Apply defaulting rules
   maxHeight = maxHeight || element.parentElement!.clientHeight
   maxWidth = maxWidth || element.parentElement!.clientWidth
