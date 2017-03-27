@@ -12,16 +12,16 @@
     "test": "NODE_ENV=development intern-runner config=test/intern"
   },
   "devDependencies": {
-    "@types/jquery": "^2.0.40",
+    "@types/jquery": "^2.0.41",
     "@types/lru-cache": "^4.0.0",
     "@webpack-blocks/webpack2": "^0.4.0",
     "html-webpack-plugin": "^2.28.0",
-    "intern": "^3.4.2",
-    "jquery": "^3.1.1",
+    "intern": "^3.4.3",
+    "jquery": "^3.2.1",
     "lru-cache": "^4.0.2",
-    "ts-loader": "^2.0.0",
-    "typescript": "^2.1.6",
-    "webpack": "2.2.1"
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "2.3.2"
   },
   "files": [
     "dist/fancy-text-fill.js",
