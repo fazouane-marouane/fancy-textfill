@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.1
+
+* Usage of a custom LRU cache implementation. The old one was way too heavy and needed polyfills.
+
 ## 1.2.0
 
 * Support for `line-height` with value `normal`
