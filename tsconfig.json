@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
     "module": "es2015",
+    "moduleResolution": "node",
     "target": "es5",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "sourceMap": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "typeRoots" : ["./node_modules/@types/"]
   }
 }

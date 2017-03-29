@@ -1,4 +1,4 @@
-import * as LRU from 'lru-cache'
+import { lru_cached } from '../lru';
 let invisibleElement = document.createElement('div');
 invisibleElement.style.visibility = 'hidden';
 invisibleElement.style.height = 'auto';
@@ -16,16 +16,13 @@ function init() {
   }
 }
 
-let cache = LRU(3000)
-export function getLineHeightRatio(fontFamily: string, fontSize: number): number {
-  let key = `${fontFamily};${fontSize}`;
-  let cachedValue = <number>cache.get(key);
-  if (!cachedValue) {
-    init();
-    invisibleElement.style.fontFamily = fontFamily;
-    invisibleElement.style.fontSize = fontSize + "px";
-    cachedValue = invisibleElement.clientHeight / fontSize;
-    cache.set(key, cachedValue);
-  }
-  return cachedValue;
+const cachedGetLineHeightRatio = lru_cached(3000)((fontFamily: string, fontSize: number) => {
+  init();
+  invisibleElement.style.fontFamily = fontFamily;
+  invisibleElement.style.fontSize = fontSize + "px";
+  return invisibleElement.clientHeight / fontSize;
+});
+
+export function getLineHeightRatio(fontFamily:string,fontSize :number): number {
+  return cachedGetLineHeightRatio(fontFamily, fontSize);
 }
