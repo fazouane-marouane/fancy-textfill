@@ -1,3 +1,6 @@
+/**
+ * @todo put this in a separate package
+ */
 type Nullable<T> = T | null;
 
 type NullableCacheEntry<TKey, TValue> = CacheEntry<TKey, TValue> | null;
