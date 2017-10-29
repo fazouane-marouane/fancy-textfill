@@ -24,6 +24,8 @@ build_script:
 
     yarn run build
 
+test: off
+
 deploy_script:
 - ps: |
     if ($ENV:APPVEYOR_REPO_TAG -eq $true)
