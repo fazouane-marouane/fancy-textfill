@@ -1,6 +1,0 @@
-{
-  "name": "typescript-block",
-  "description": "Webpack block for typescript 2.",
-  "main": "index.js",
-  "license": "MIT"
-}

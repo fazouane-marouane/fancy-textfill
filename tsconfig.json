@@ -6,9 +6,10 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "sourceMap": true,
+    "declaration": true,
     "lib": [
-      "es2015",
-      "dom"
+      "dom",
+      "es2017"
     ],
     "typeRoots" : ["./node_modules/@types/"]
   }

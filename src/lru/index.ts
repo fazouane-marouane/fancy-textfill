@@ -1,11 +1,9 @@
-/**
- * @todo put this in a separate package
+/** 
+ * @todo put this in a separate package 
  */
-type Nullable<T> = T | null;
+export type NullableCacheEntry<TKey, TValue> = CacheEntry<TKey, TValue> | null;
 
-type NullableCacheEntry<TKey, TValue> = CacheEntry<TKey, TValue> | null;
-
-class CacheEntry<TKey, TValue> {
+export class CacheEntry<TKey, TValue> {
   public older: NullableCacheEntry<TKey, TValue> = null;
   public newer: NullableCacheEntry<TKey, TValue> = null;
   constructor(public key: TKey, public value: TValue) {
@@ -13,12 +11,11 @@ class CacheEntry<TKey, TValue> {
 }
 
 export class LRUCache<TKey extends string | number, TValue> {
-
   /* double linked list */
   public size: number = 0;
   public oldest: NullableCacheEntry<TKey, TValue> = null;
   public newest: NullableCacheEntry<TKey, TValue> = null;
-  private keymap: Map<TKey, CacheEntry<TKey, TValue>> = new Map();
+  private keymap: Map<TKey, CacheEntry<TKey, TValue>> = new Map<TKey, CacheEntry<TKey, TValue>>();
 
   constructor(public limit: number = 0) {
   }
