@@ -20,9 +20,8 @@ npm install --save fancy-textfill
 ```html
 <!-- In case you're using it as a jquery plugin -->
 <script src="jquery.min.js"></script>
-<script src="fancy-text-fill.jQuery.js"></script>
-<!-- Or you can use it without jquery -->
-<script src="fancy-text-fill.js"></script>
+<script src="https://unpkg.com/fancy-textfill/dist/fancy-text-fill.jQuery.js"></script>
+<!-- Or you can use it without jquery, by using https://unpkg.com/fancy-textfill/dist/fancy-text-fill.js -->
 <!-- Example setup -->
 <style>
   .container {
@@ -56,6 +55,28 @@ document.getElementsByClassName('myText')
 $('.myText').fancyTextFill({
   minFontSize: 6,
   maxFontSize: 26
+});
+```
+
+You can also use it as a module. You can import it like so:
+
+```js
+// Without jquery
+import { fillParentContainer } from 'fancy-textfill';
+// Or const { fillParentContainer } = require('fancy-textfill');
+fillParentContainer(el, {
+  minFontSize: 6,
+  maxFontSize: 26
+});
+```
+
+```js
+// as a jquery plugin
+import 'fancy-textfill/es2015/jquery.plugin';
+// Or require('fancy-textfill/es2015/jquery.plugin');
+$('.myText').fancyTextFill({
+ minFontSize: 6,
+ maxFontSize: 26
 });
 ```
 

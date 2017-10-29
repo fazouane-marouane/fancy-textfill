@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.2.3
+
+* Provide the lib as a ES2015 module and umd module to please everyone.
+* explain more HOWTOs in the README
+
+## 1.2.2
+
+* Change the build system
+
 ## 1.2.1
 
 * Usage of a custom LRU cache implementation. The old one was way too heavy and needed polyfills.

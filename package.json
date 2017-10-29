@@ -1,8 +1,8 @@
 {
   "name": "fancy-textfill",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Fast implementation for resizing text to fill its container.",
-  "main": "dist/fancy-text-fill.js",
+  "main": "es2015/index.js",
   "repository": "https://github.com/fazouane-marouane/fancy-textfill",
   "author": "Fazouane Marouane",
   "license": "MIT",
@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "build": "neutrino build",
+    "build": "neutrino build && tsc --outDir es2015",
     "test": "NODE_ENV=development intern-runner config=test/intern"
   },
   "devDependencies": {
@@ -34,6 +34,7 @@
   },
   "files": [
     "dist/fancy-text-fill.js",
-    "dist/fancy-text-fill.jQuery.js"
+    "dist/fancy-text-fill.jQuery.js",
+    "es2015/*"
   ]
 }
