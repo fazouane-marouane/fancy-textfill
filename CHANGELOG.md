@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.4
+
+* Provide a way to easily import the lib in a browserify project.
+
 ## 1.2.3
 
 * Provide the lib as a ES2015 module and umd module to please everyone.
