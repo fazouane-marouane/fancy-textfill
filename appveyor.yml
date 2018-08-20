@@ -5,32 +5,32 @@ skip_tags: false
 deploy: off
 environment:
   NPM_TOKEN:
-    secure: 9dlfsEoG2qmdCFCOJAzuz7+mpV0g96W8mC0GaxC1Ufqnh1HnBufoUNfxLTqqiSxW
+    secure: 8w4aqZxasDQ093fZS+NwPOPGM/jy0BrOTupejRAI3PuasN0WP1AGgGCrbpP73R16
 install:
-- ps: >-
-    Install-Product node 8.7 x64
+  - ps: >-
+      Install-Product node 8.7 x64
 
-    node --version
+      node --version
 
-    npm --version
+      npm --version
 
-    yarn --version
+      yarn --version
 cache:
-- "%LOCALAPPDATA%\\Yarn"
-- node_modules
+  - "%LOCALAPPDATA%\\Yarn"
+  - node_modules
 build_script:
-- cmd: >-
-    yarn install --frozen-lockfile
+  - cmd: >-
+      yarn install --frozen-lockfile
 
-    yarn run build
+      yarn run build
 
 test: off
 
 deploy_script:
-- ps: |
-    if ($ENV:APPVEYOR_REPO_TAG -eq $true)
-    {
-        "//registry.npmjs.org/:_authToken=`$`{NPM_TOKEN`}" | Out-File (Join-Path $ENV:APPVEYOR_BUILD_FOLDER ".npmrc") -Encoding UTF8
-        iex "npm pack"
-        iex "npm publish"
-    }
+  - ps: |
+      if ($ENV:APPVEYOR_REPO_TAG -eq $true)
+      {
+          "//registry.npmjs.org/:_authToken=`$`{NPM_TOKEN`}" | Out-File (Join-Path $ENV:APPVEYOR_BUILD_FOLDER ".npmrc") -Encoding UTF8
+          iex "npm pack"
+          iex "npm publish"
+      }
