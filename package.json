@@ -1,6 +1,6 @@
 {
   "name": "fancy-textfill",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Fast implementation for resizing text to fill its container.",
   "main": "es2015/index.js",
   "repository": "https://github.com/fazouane-marouane/fancy-textfill",
@@ -18,7 +18,18 @@
       }
     }
   },
-  "browserify": { "transform": [["babelify", { "presets": ["es2015"] }]] },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
   "scripts": {
     "build": "neutrino build && tsc --outDir es2015",
     "test": "NODE_ENV=development intern-runner config=test/intern"
