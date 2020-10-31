@@ -15,6 +15,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
+    "pretest": "npm run build",
     "test": "intern",
     "lint": "tsdx lint",
     "prepare": "tsdx build"

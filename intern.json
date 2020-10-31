@@ -1,6 +1,7 @@
 {
   "environments": "chrome",
-  "suites": "tests/unit/**/*.js",
+  "coverage": ["src/**/*.ts"],
+  "suites": "./tests/unit/**/*.js",
   "browser": {
     "loader": "esm"
   }

@@ -25,8 +25,8 @@ export function fillParentContainer(
     explicitLineHeight
   );
   // 2. Apply defaulting rules
-  maxHeight = maxHeight || element.parentElement!.clientHeight;
-  maxWidth = maxWidth || element.parentElement!.clientWidth;
+  maxHeight = maxHeight || element.parentElement?.clientHeight || 0;
+  maxWidth = maxWidth || element.parentElement?.clientWidth || 0;
   const algoParams: AlgorithmParameters = {
     fontFamily,
     fontSize: 0,
@@ -45,7 +45,7 @@ export function fillParentContainer(
   const widthHeightRatios = tokenizedText.map(text =>
     computeWidthHeightRatio(fontFamily, text)
   );
-  // 4. compute the optimal font-size!
+  // 4. compute the optimal font-size
   let optimalSize = optimalFontSize(widthHeightRatios, algoParams);
   element.style.fontSize = `${optimalSize}px`;
 }

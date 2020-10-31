@@ -4,22 +4,30 @@
 export type NullableCacheEntry<TKey, TValue> = CacheEntry<TKey, TValue> | null;
 
 export class CacheEntry<TKey, TValue> {
-  public older: NullableCacheEntry<TKey, TValue> = null;
-  public newer: NullableCacheEntry<TKey, TValue> = null;
-  constructor(public key: TKey, public value: TValue) {}
+  older: NullableCacheEntry<TKey, TValue> = null;
+  newer: NullableCacheEntry<TKey, TValue> = null;
+  key: TKey;
+  value: TValue;
+  constructor(key: TKey, value: TValue) {
+    this.key = key;
+    this.value = value;
+  }
 }
 
 export class LRUCache<TKey extends string | number, TValue> {
   /* double linked list */
-  public size: number = 0;
-  public oldest: NullableCacheEntry<TKey, TValue> = null;
-  public newest: NullableCacheEntry<TKey, TValue> = null;
+  size: number = 0;
+  oldest: NullableCacheEntry<TKey, TValue> = null;
+  newest: NullableCacheEntry<TKey, TValue> = null;
+  limit: number = 0;
   private keymap: Map<TKey, CacheEntry<TKey, TValue>> = new Map<
     TKey,
     CacheEntry<TKey, TValue>
   >();
 
-  constructor(public limit: number = 0) {}
+  constructor(limit: number = 0) {
+    this.limit = limit;
+  }
 
   clear() {
     this.oldest = this.newest = null;

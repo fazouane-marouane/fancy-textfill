@@ -9,7 +9,7 @@ export function fontInfo(
   explicitLineHeight: boolean
 ): FontInfo {
   const computedStyle = window.getComputedStyle(element);
-  const fontFamily = computedStyle.fontFamily!;
+  const fontFamily = computedStyle.fontFamily;
   const lineHeight = computedStyle.lineHeight;
   let lineHeightRatio: number | null = null;
   let maxLineHeight: number | null = null;
