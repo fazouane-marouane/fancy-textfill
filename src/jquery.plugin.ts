@@ -1,6 +1,6 @@
-import { Options, fillParentContainer } from "./index";
-export * from "./index";
-import * as $ from "jquery";
+import { Options, fillParentContainer } from './index';
+import * as $ from 'jquery';
+export * from './index';
 
 declare global {
   interface JQuery {
@@ -8,8 +8,8 @@ declare global {
   }
 }
 
-$.fn.fancyTextFill = function (this: JQuery, opts: Options) {
-  this.each(function (this: HTMLElement) {
+$.fn.fancyTextFill = function(this: JQuery, opts: Options) {
+  this.each(function(this: HTMLElement) {
     fillParentContainer(this, opts);
   });
   return this;

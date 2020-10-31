@@ -4,14 +4,17 @@ export interface FontInfo {
   maxLineHeight: number | null;
 }
 
-export function fontInfo(element: HTMLElement, explicitLineHeight: boolean): FontInfo {
+export function fontInfo(
+  element: HTMLElement,
+  explicitLineHeight: boolean
+): FontInfo {
   const computedStyle = window.getComputedStyle(element);
   const fontFamily = computedStyle.fontFamily!;
   const lineHeight = computedStyle.lineHeight;
-  let lineHeightRatio: number | null= null;
+  let lineHeightRatio: number | null = null;
   let maxLineHeight: number | null = null;
   if (lineHeight && lineHeight !== 'normal') {
-    let matchs = lineHeight.match(/^(\d+(?:\.?\d+)?)(\w*)$/) !;
+    let matchs = lineHeight.match(/^(\d+(?:\.?\d+)?)(\w*)$/)!;
     lineHeightRatio = parseFloat(matchs[1]);
     switch (matchs[2]) {
       case '%':
@@ -21,16 +24,17 @@ export function fontInfo(element: HTMLElement, explicitLineHeight: boolean): Fon
         if (explicitLineHeight) {
           maxLineHeight = lineHeightRatio;
         }
-        lineHeightRatio /= parseFloat((computedStyle.fontSize || element.style.fontSize) !);
+        lineHeightRatio /= parseFloat(
+          (computedStyle.fontSize || element.style.fontSize)!
+        );
         break;
     }
-  }
-  else {
+  } else {
     lineHeightRatio = -1;
   }
   return {
     fontFamily,
     lineHeightRatio,
-    maxLineHeight
+    maxLineHeight,
   };
 }

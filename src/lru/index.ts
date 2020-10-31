@@ -1,13 +1,12 @@
-/** 
- * @todo put this in a separate package 
+/**
+ * @todo put this in a separate package
  */
 export type NullableCacheEntry<TKey, TValue> = CacheEntry<TKey, TValue> | null;
 
 export class CacheEntry<TKey, TValue> {
   public older: NullableCacheEntry<TKey, TValue> = null;
   public newer: NullableCacheEntry<TKey, TValue> = null;
-  constructor(public key: TKey, public value: TValue) {
-  }
+  constructor(public key: TKey, public value: TValue) {}
 }
 
 export class LRUCache<TKey extends string | number, TValue> {
@@ -15,10 +14,12 @@ export class LRUCache<TKey extends string | number, TValue> {
   public size: number = 0;
   public oldest: NullableCacheEntry<TKey, TValue> = null;
   public newest: NullableCacheEntry<TKey, TValue> = null;
-  private keymap: Map<TKey, CacheEntry<TKey, TValue>> = new Map<TKey, CacheEntry<TKey, TValue>>();
+  private keymap: Map<TKey, CacheEntry<TKey, TValue>> = new Map<
+    TKey,
+    CacheEntry<TKey, TValue>
+  >();
 
-  constructor(public limit: number = 0) {
-  }
+  constructor(public limit: number = 0) {}
 
   clear() {
     this.oldest = this.newest = null;
@@ -53,13 +54,11 @@ export class LRUCache<TKey extends string | number, TValue> {
     if (this.getItem(key)) {
       let entry = this.keymap.get(key)!;
       entry.value = value;
-    }
-    else {
+    } else {
       let entry = new CacheEntry<TKey, TValue>(key, value);
       if (!this.limit || this.size < this.limit) {
         this.size++;
-      }
-      else {
+      } else {
         let firstEntry = this.oldest;
         this.oldest = firstEntry!.newer;
         this.oldest!.older = null;
@@ -80,8 +79,8 @@ export class LRUCache<TKey extends string | number, TValue> {
 
 export function lru_cached(limit: number) {
   let cache = new LRUCache<string, any>(limit);
-  return function (target: any) {
-    return function (...args: any[]) {
+  return function(target: any) {
+    return function(...args: any[]) {
       let key = args.map(v => `${v}`).join(';');
       let value = cache.getItem(key);
       if (!value) {
@@ -89,6 +88,6 @@ export function lru_cached(limit: number) {
         cache.setItem(key, value);
       }
       return value;
-    }
-  }
+    };
+  };
 }
