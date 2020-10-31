@@ -1,10 +1,10 @@
 /// <reference types="intern" />
-import fancyTextFill from '..';
+import * as fancyTextFill from '../../dist/fancy-textfill.esm.js';
 
 const { describe, it } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
 
-describe('textfill', function() {
+describe('textfill', function () {
   var optionsTemplates = {
     minFontSize: 6,
     maxFontSize: 26,
@@ -13,39 +13,31 @@ describe('textfill', function() {
     multiline: false,
   };
 
-  it('final font size should be smaller than maxFontSize', function() {
+  it('final font size should be smaller than maxFontSize', function () {
     var element = document.createElement('div');
     element.innerText = 'hey';
     var options = Object.assign({}, optionsTemplates);
     fancyTextFill.fillParentContainer(element, options);
-    expect(element.style.fontSize)
-      .be.a('string')
-      .and.eql('26px');
+    expect(element.style.fontSize).be.a('string').and.eql('26px');
     options.multiline = true;
     options.maxFontSize = 10;
     fancyTextFill.fillParentContainer(element, options);
-    expect(element.style.fontSize)
-      .be.a('string')
-      .and.eql('10px');
+    expect(element.style.fontSize).be.a('string').and.eql('10px');
   });
 
-  it('final font size should be bigger than minFontSize', function() {
+  it('final font size should be bigger than minFontSize', function () {
     var element = document.createElement('div');
     element.innerText =
       "Chanelthis,Chanelthat,hellyeah.Straightstuntin'yeahwedoitlikethat.Ineedyourstrengthtohandlethepressure.Infectmewithyourloveandfillmewithyourpoison.";
     var options = Object.assign({}, optionsTemplates);
     fancyTextFill.fillParentContainer(element, options);
-    expect(element.style.fontSize)
-      .be.a('string')
-      .and.eql('6px');
+    expect(element.style.fontSize).be.a('string').and.eql('6px');
     options.minFontSize = 20;
     fancyTextFill.fillParentContainer(element, options);
-    expect(element.style.fontSize)
-      .be.a('string')
-      .and.eql('20px');
+    expect(element.style.fontSize).be.a('string').and.eql('20px');
   });
 
-  it("multiline is irrelevant when there's no space in the innerText", function() {
+  it("multiline is irrelevant when there's no space in the innerText", function () {
     var element = document.createElement('div');
     element.innerText =
       "Chanelthis,Chanelthat,hellyeah.Straightstuntin'yeahwedoitlikethat.";
@@ -58,7 +50,7 @@ describe('textfill', function() {
     expect(fontSize1).eql(fontSize2);
   });
 
-  it('multiline make the text bigger', function() {
+  it('multiline make the text bigger', function () {
     var element = document.createElement('div');
     element.innerText =
       "Chanel this, Chanel that, hell yeah. Straight stuntin' yeah we do it like that.";
@@ -71,7 +63,7 @@ describe('textfill', function() {
     expect(fontSize1).be.below(fontSize2);
   });
 
-  it('numeric line-heights should be handled', function() {
+  it('numeric line-heights should be handled', function () {
     var element = document.createElement('div');
     document.body.appendChild(element);
     element.style.fontFamily = 'Arial';
