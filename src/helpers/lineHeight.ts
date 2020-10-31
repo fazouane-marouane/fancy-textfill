@@ -6,8 +6,8 @@ invisibleElement.style.left = '0px';
 invisibleElement.style.visibility = 'hidden';
 invisibleElement.style.height = 'auto';
 invisibleElement.style.width = 'auto';
-invisibleElement.style.zIndex = "-9999";
-invisibleElement.innerText = "h";
+invisibleElement.style.zIndex = '-9999';
+invisibleElement.innerText = 'h';
 
 document.addEventListener('DOMContentLoaded', init);
 var initialized = false;
@@ -19,13 +19,18 @@ function init() {
   }
 }
 
-const cachedGetLineHeightRatio = lru_cached(3000)((fontFamily: string, fontSize: number) => {
-  init();
-  invisibleElement.style.fontFamily = fontFamily;
-  invisibleElement.style.fontSize = fontSize + "px";
-  return invisibleElement.clientHeight / fontSize;
-});
+const cachedGetLineHeightRatio = lru_cached(3000)(
+  (fontFamily: string, fontSize: number) => {
+    init();
+    invisibleElement.style.fontFamily = fontFamily;
+    invisibleElement.style.fontSize = fontSize + 'px';
+    return invisibleElement.clientHeight / fontSize;
+  }
+);
 
-export function getLineHeightRatio(fontFamily:string,fontSize :number): number {
+export function getLineHeightRatio(
+  fontFamily: string,
+  fontSize: number
+): number {
   return cachedGetLineHeightRatio(fontFamily, fontSize);
 }

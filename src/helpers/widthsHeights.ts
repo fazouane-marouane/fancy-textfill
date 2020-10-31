@@ -1,16 +1,22 @@
 import { AlgorithmParameters } from './algorithmParameters';
-import { getLineHeightRatio } from './lineHeight'
+import { getLineHeightRatio } from './lineHeight';
 
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d')!;
-ctx.font = "10px Arial,sans-serif";
+ctx.font = '10px Arial,sans-serif';
 
-export function computeWidthHeightRatio(fontFamily: string, text: string): number {
+export function computeWidthHeightRatio(
+  fontFamily: string,
+  text: string
+): number {
   ctx.font = `10px ${fontFamily}`;
   return ctx.measureText(text).width / 10;
 }
 
-export function estimateLinesCount(wordRatios: number[], args: AlgorithmParameters): number {
+export function estimateLinesCount(
+  wordRatios: number[],
+  args: AlgorithmParameters
+): number {
   let { fontSize, maxWidth } = args;
   let currentLineWidth = 0;
   let lines = 1;
@@ -28,11 +34,14 @@ export function estimateLinesCount(wordRatios: number[], args: AlgorithmParamete
   return lines;
 }
 
-export function estimateHeight(wordRatios: number[], args: AlgorithmParameters): number {
+export function estimateHeight(
+  wordRatios: number[],
+  args: AlgorithmParameters
+): number {
   let { fontFamily, fontSize, lineHeightRatio } = args;
   let linesCount = estimateLinesCount(wordRatios, args);
   if (lineHeightRatio < 0) {
-    lineHeightRatio = getLineHeightRatio(fontFamily, fontSize)
+    lineHeightRatio = getLineHeightRatio(fontFamily, fontSize);
   }
   let computedHeight = fontSize * linesCount * lineHeightRatio;
   return computedHeight;

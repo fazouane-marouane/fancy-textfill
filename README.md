@@ -1,4 +1,4 @@
-# FancyTextFill
+# fancy-textfill
 [![npm](https://img.shields.io/npm/v/fancy-textfill.svg)](https://www.npmjs.com/package/fancy-textfill)
 [![license](https://img.shields.io/github/license/fazouane-marouane/fancy-textfill.svg)](https://github.com/fazouane-marouane/fancy-textfill/blob/master/LICENSE)
 
