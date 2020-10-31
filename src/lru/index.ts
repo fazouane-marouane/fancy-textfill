@@ -85,7 +85,7 @@ export function lru_cached(limit: number) {
       let key = args.map(v => `${v}`).join(';');
       let value = cache.getItem(key);
       if (!value) {
-        value = target.apply(this, args);
+        value = target.apply(null, args);
         cache.setItem(key, value);
       }
       return value;
