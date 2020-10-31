@@ -1,6 +1,5 @@
 import {
-  Options, AlgorithmParameters, fontInfo,
-  getLineHeightRatio, computeWidthHeightRatio, estimateHeight } from './helpers/index'
+  Options, AlgorithmParameters, fontInfo, computeWidthHeightRatio, estimateHeight } from './helpers/index'
 export { Options }
 
 export function fillParentContainer(element: HTMLElement, opts: Options = {}): void {
