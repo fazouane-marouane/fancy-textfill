@@ -1,8 +1,0 @@
-{
-  "environments": "chrome",
-  "coverage": ["src/**/*.ts"],
-  "suites": "./tests/unit/**/*.js",
-  "browser": {
-    "loader": "esm"
-  }
-}

@@ -5,7 +5,7 @@ import {
   computeWidthHeightRatio,
   estimateHeight,
 } from './helpers/index';
-export { Options };
+export type { Options };
 
 export function fillParentContainer(
   element: HTMLElement,
