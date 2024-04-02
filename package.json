@@ -34,5 +34,6 @@
     "hooks": {
       "pre-commit": "tsdx lint"
     }
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
