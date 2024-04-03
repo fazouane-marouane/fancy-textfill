@@ -1,5 +1,4 @@
-// vite.config.js
-import { resolve } from "path";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -11,8 +10,6 @@ export default defineConfig({
       formats: ["umd", "es"],
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
       external: ["jquery"],
       //   output: {
       //     // // Provide global variables to use in the UMD build

@@ -15,7 +15,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "test-ci": "vitest run --coverage",
+    "test-ci": "vitest run",
     "test": "vitest",
     "lint": "yarn dlx @biomejs/biome check --apply ./src ./tests",
     "lint-ci": "yarn dlx @biomejs/biome check ./src ./tests"
