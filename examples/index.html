@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../dist/fancy-text-fill.jquery.umd.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Caveat+Brush");
+      @import url("https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,900");
+      .box {
+        border: crimson solid thin;
+        width: 245px;
+        height: 56px;
+        vertical-align: middle;
+        box-sizing: border-box;
+      }
+
+      .myText {
+        display: block;
+        font-family: "Caveat Brush", cursive;
+      }
+
+      .top-right {
+        position: fixed;
+        top: 0;
+        right: 0;
+        border: 0;
+      }
+
+      /* Style from https://css-tricks.com/line-on-sides-headers/ */
+      body {
+        background: #4b79a1; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to left,
+          #4b79a1,
+          #283e51
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to left,
+          #4b79a1,
+          #283e51
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background-size: cover;
+        color: white;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", cursive;
+        font-size: 3em;
+        text-align: center;
+      }
+      .embiggen {
+        font-size: 4em;
+        text-shadow: 0 0 40px #ffbab3;
+      }
+      article {
+        max-width: 600px;
+        overflow: hidden;
+        margin: 0 auto 50px;
+      }
+
+      .subtitle {
+        margin: 0 0 2em 0;
+      }
+      .fancy {
+        line-height: 0.5;
+        text-align: center;
+      }
+      .fancy span {
+        display: inline-block;
+        position: relative;
+      }
+      .fancy span:before,
+      .fancy span:after {
+        content: "";
+        position: absolute;
+        height: 5px;
+        border-bottom: 1px solid white;
+        border-top: 1px solid white;
+        top: 0;
+        width: 600px;
+      }
+      .fancy span:before {
+        right: 100%;
+        margin-right: 15px;
+      }
+      .fancy span:after {
+        left: 100%;
+        margin-left: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Fancy-TextFill</h1>
+    <p class="subtitle fancy">
+      <span>Fast implementation for resizing text to fill its container.</span>
+    </p>
+    <div class="top-right">
+      <p style="position: absolute; right: 0; top: 0; margin: 0">
+        <a href="https://github.com/fazouane-marouane/fancy-textfill">
+          <img
+            src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+            alt="Fork me on GitHub"
+            data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+          />
+        </a>
+      </p>
+      <p style="position: relative; top: 149px; margin: 0">
+        100px
+        <input
+          id="slider"
+          type="range"
+          min="0"
+          max="700"
+          step="1"
+          value="145"
+        />
+        800px;
+      </p>
+    </div>
+    <div id="root"></div>
+    <script>
+      var root = jQuery(document.getElementById("root"));
+      document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+          "'Cause I am a champion and you’re gonna hear me roar. Oh oh oh oh oh oh, Oh oh oh oh oh oh. So I sat quietly, agreed politely. Sun-kissed skin so hot we'll melt your popsicle. You've become what you despise, a stereotype. Passport stamps, she's cosmopolitan. You're so supersonic, wanna feel your powers, stun me with your lasers. Passport stamps, she's cosmopolitan. I can see the writing on the wall. Don't need apologies. I heard you're feeling nothing's going right. And on my 18th Birthday we got matching tattoos. Slowly swallowing down my fear, yeah yeah. You say that you love me, you won't remember in the morning. There is no fear now, let go and just be free, I will love you unconditionally. We are now approaching the runway, so get ready for take off. Need some goose, to get loose, come on take a shot. Before you met me I was alright but things were kinda heavy. I know you get me so I let my walls come down, down. Who am I living for?. This test is my own cross to bare. It’s a yes or no, no maybe. Come on baby let me see. 'Cause she's a little bit of Yoko, And she's a little bit of 'Oh no'. Last Friday night we went streaking in the park. You brought me to life, now every February you'll be my Valentine, Valentine. Why don't you let me stop by? Last Friday night. Chanel this, Chanel that, hell yeah. Straight stuntin' yeah we do it like that. I need your strength to handle the pressure. Infect me with your love and fill me with your poison. This test is my own cross to bare. That girl’s a trip, a one way ticket. Glitter all over the room pink flamingos in the pool. 'Cause I am a champion and you’re gonna hear me roar louder, louder than a lion. I'm not gonna stay and watch you circle the drain. There’s no going back. Stinging like a bee I earned my stripes."
+            .split(". ")
+            .forEach(function (id) {
+              Array.apply(null, new Array(1)).forEach(function () {
+                var el = jQuery(
+                  '<div class="box"><span class="myText">' +
+                    id +
+                    "</span></div>"
+                );
+                root.append(el);
+              });
+            });
+          jQuery(".myText").fancyTextFill({
+            minFontSize: 6,
+            maxFontSize: 50,
+          });
+          jQuery("#slider").on("input change", function (event) {
+            var r = Number.parseInt(event.currentTarget.value);
+            jQuery(".box")
+              .toArray()
+              .forEach(function (el) {
+                el.style.width = 100 + r + "px";
+              });
+            jQuery(".myText").fancyTextFill({
+              minFontSize: 6,
+              maxFontSize: 50,
+            });
+          });
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
